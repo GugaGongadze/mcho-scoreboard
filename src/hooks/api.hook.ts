@@ -64,14 +64,14 @@ function useApi() {
     })
 
 
-    Promise.all([viewScopePromise, resultScopePromise])
-      .then(async responses => {
-        for (const response of responses) {
-          const result = await response.json()
-          const token = result.access_token
-          localStorage.setItem(result.scope, token)
-        }
-      })
+    const responses = await Promise.all([viewScopePromise, resultScopePromise])
+
+    for (const response of responses) {
+      const result = await response.json()
+      const token = result.access_token
+      localStorage.setItem(result.scope, token)
+    }
+      
   }
 
   const getTournaments = async (): Promise<Array<any>| null> => {

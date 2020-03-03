@@ -95,18 +95,16 @@ function MatchControls() {
   const [currMatch, setCurrMatch] = useState(matchId)
 
   useEffect(() => {
-    requestAccess()
-  }, [requestAccess])
-
-  useEffect(() => {
-    getTournaments().then(maybeTournaments => {
-      if (!maybeTournaments) {
-        setTournaments(null)
-      } else {
-        setTournaments(maybeTournaments)
-      }
+    requestAccess().then(() => {
+      getTournaments().then(maybeTournaments => {
+        if (!maybeTournaments) {
+          setTournaments(null)
+        } else {
+          setTournaments(maybeTournaments)
+        }
+      })
     })
-  }, [getTournaments])
+  }, [getTournaments, requestAccess])
 
   useEffect(() => {
     if (currTournament !== '') {
